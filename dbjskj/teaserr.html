@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bebe's Mistreatment</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            height: 100%; /* Full height to cover the entire page */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            background-color: #000; /* Default background color for body */
+        }
+
+        #landingPage {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover; /* Ensure the background image covers the entire viewport */
+            opacity: 1;
+            transition: opacity 1s ease; /* Smooth fade-out transition */
+        }
+
+        #landingPage.hidden {
+            opacity: 0;
+        }
+
+        #landingPage h1 {
+            font-size: 3em;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
+        }
+
+        .button {
+            background: linear-gradient(145deg, #fff, #ccc); /* Gradient effect */
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 1.2em;
+            border-radius: 8px;
+            box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            transition: background 0.3s ease, transform 0.3s ease; /* Smooth hover effect and scaling */
+            margin-top: 20px; /* Ensure button is under the text */
+        }
+
+        .button:hover {
+            background: linear-gradient(145deg, #ddd, #bbb); /* Darker gradient on hover */
+            transform: scale(1.1); /* Slight zoom effect on hover */
+        }
+
+        .input-password {
+            padding: 10px;
+            font-size: 1em;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #fff;
+            transition: border-color 0.3s ease; /* Smooth focus transition */
+        }
+
+        .input-password:focus {
+            border-color: #fff;
+            outline: none;
+        }
+
+        #songsPage {
+            display: none;
+            background-color: #000; /* Default black background */
+            background-image: url('songs-background.jpg'); /* Background image for songs page */
+            background-size: cover; /* Ensures the image covers the entire background */
+            background-position: center center; /* Centers the background image */
+            background-repeat: no-repeat; /* Prevents image repetition */
+            color: #fff;
+            min-height: 100vh;
+            opacity: 0;
+            transition: opacity 1s ease; /* Smooth fade-in transition */
+        }
+
+        #songsPage.visible {
+            display: block;
+            opacity: 1;
+        }
+
+        #songsList {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Center items horizontally */
+            gap: 20px; /* Spacing between song containers */
+            padding: 20px;
+        }
+
+        .song-container {
+            margin: 0;
+            padding: 20px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            background-color: #222;
+            width: 300px; /* Fixed width for each song container */
+            text-align: left;
+            opacity: 1; /* Ensure song containers are immediately visible */
+            transition: background-color 0.3s ease; /* Smooth background color transition */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Add shadow effect */
+        }
+
+        .song-container:hover {
+            background-color: #333; /* Darker background on hover */
+        }
+
+        .title {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Text shadow for better readability */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        audio {
+            display: none; /* Hide the default audio player */
+        }
+    </style>
+</head>
+<body>
+    <div id="landingPage" class="container">
+        <h1>Welcome to Bebe's Mistreatment, are you ready?</h1>
+        <button class="button" onclick="goToSongs()">Let's Go</button>
+    </div>
+
+    <div id="songsPage" class="container">
+        <h1>Unlock the Songs</h1>
+        <div id="songsList">
+            <!-- Song 1 -->
+            <div class="song-container">
+                <p id="song1" class="title">*****</p>
+                <button class="button" onclick="unlockSong(1)">Unlock Song 1</button>
+                <input id="password1" type="password" class="input-password" placeholder="Enter password">
+                <audio id="audio1" src="song1.mp3" preload="auto"></audio>
+            </div>
+            <!-- Song 2 -->
+            <div class="song-container">
+                <p id="song2" class="title">*****</p>
+                <button class="button" onclick="unlockSong(2)">Unlock Song 2</button>
+                <input id="password2" type="password" class="input-password" placeholder="Enter password">
+                <audio id="audio2" src="song2.mp3" preload="auto"></audio>
+            </div>
+            <!-- Song 3 -->
+            <div class="song-container">
+                <p id="song3" class="title">*****</p>
+                <button class="button" onclick="unlockSong(3)">Unlock Song 3</button>
+                <input id="password3" type="password" class="input-password" placeholder="Enter password">
+                <audio id="audio3" src="song3.mp3" preload="auto"></audio>
+            </div>
+            <!-- Song 4 (Unlocked) -->
+            <div class="song-container unlocked">
+                <p id="song4" class="title">Addicted to You</p>
+                <audio id="audio4" src="song4.mp3" preload="auto"></audio>
+            </div>
+            <!-- Song 5 -->
+            <div class="song-container">
+                <p id="song5" class="title">*****</p>
+                <button class="button" onclick="unlockSong(5)">Unlock Song 5</button>
+                <input id="password5" type="password" class="input-password" placeholder="Enter password">
+                <audio id="audio5" src="song5.mp3" preload="auto"></audio>
+            </div>
+            <!-- Song 6 (Unlocked) -->
+            <div class="song-container unlocked">
+                <p id="song6" class="title">Daddy's Angel</p>
+                <audio id="audio6" src="song6.mp3" preload="auto"></audio>
+            </div>
+            <!-- Song 7 -->
+            <div class="song-container">
+                <p id="song7" class="title">*****</p>
+                <button class="button" onclick="unlockSong(7)">Unlock Song 7</button>
+                <input id="password7" type="password" class="input-password" placeholder="Enter password">
+                <audio id="audio7" src="song7.mp3" preload="auto"></audio>
+            </div>
+            <!-- Song 8 -->
+            <div class="song-container">
+                <p id="song8" class="title">*****</p>
+                <button class="button" onclick="unlockSong(8)">Unlock Song 8</button>
+                <input id="password8" type="password" class="input-password" placeholder="Enter password">
+                <audio id="audio8" src="song8.mp3" preload="auto"></audio>
+            </div>
+            <!-- Song 9 -->
+            <div class="song-container">
+                <p id="song9" class="title">*****</p>
+                <button class="button" onclick="unlockSong(9)">Unlock Song 9</button>
+                <input id="password9" type="password" class="input-password" placeholder="Enter password">
+                <audio id="audio9" src="song9.mp3" preload="auto"></audio>
+            </div>
+            <!-- Song 10 -->
+            <div class="song-container">
+                <p id="song10" class="title">*****</p>
+                <button class="button" onclick="unlockSong(10)">Unlock Song 10</button>
+                <input id="password10" type="password" class="input-password" placeholder="Enter password">
+                <audio id="audio10" src="song10.mp3" preload="auto"></audio>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goToSongs() {
+            const landingPage = document.getElementById('landingPage');
+            const songsPage = document.getElementById('songsPage');
+
+            landingPage.classList.add('hidden');
+
+            setTimeout(() => {
+                landingPage.style.display = 'none';
+                songsPage.classList.add('visible');
+                songsPage.style.display = 'block';
+            }, 1000); // Timeout matches the transition duration
+        }
+
+        // Function to unlock a song
+        function unlockSong(songNumber) {
+            const passwordInput = document.getElementById(`password${songNumber}`);
+            const password = passwordInput.value.trim(); // Remove leading/trailing spaces
+
+            // Set correct passwords for each song
+            const passwords = {
+                1: 'You Found Out',
+                2: 'password2',
+                3: 'password3',
+                4: 'Addicted to You', // Song 4 is unlocked by default
+                5: 'password5',
+                6: 'Daddy\'s Angel', // Song 6 is unlocked by default
+                7: 'password7',
+                8: 'password8',
+                9: 'password9',
+                10: 'password10'
+            };
+
+            // Set song titles for each song
+            const songTitles = {
+                1: 'Intro',
+                2: 'Song Title 2',
+                3: 'Song Title 3',
+                4: 'Addicted to You', // Updated title for Song 4
+                5: 'Song Title 5',
+                6: 'Daddy\'s Angel', // Updated title for Song 6
+                7: 'Song Title 7',
+                8: 'Song Title 8',
+                9: 'Song Title 9',
+                10: 'Song Title 10'
+            };
+
+            const correctPassword = passwords[songNumber];
+
+            // Get the song title and audio elements
+            const songText = document.getElementById(`song${songNumber}`);
+            const audio = document.getElementById(`audio${songNumber}`);
+
+            if (songNumber === 4 || songNumber === 6) {
+                // Song 4 and Song 6 are unlocked by default
+                songText.textContent = songTitles[songNumber];
+                audio.classList.remove('hidden');
+                audio.play()
+                    .then(() => console.log(`Playing song ${songNumber}`))
+                    .catch(error => console.error('Audio playback error:', error));
+
+                // Add smooth fade-in effect for song container
+                const songContainer = document.querySelector(`.song-container:nth-of-type(${songNumber})`);
+                songContainer.style.opacity = 1; // Immediately show the song container
+            } else {
+                if (password === correctPassword) {
+                    songText.textContent = songTitles[songNumber];
+                    audio.classList.remove('hidden');
+                    audio.play()
+                        .then(() => console.log(`Playing song ${songNumber}`))
+                        .catch(error => console.error('Audio playback error:', error));
+
+                    // Add smooth fade-in effect for song container
+                    const songContainer = document.querySelector(`.song-container:nth-of-type(${songNumber})`);
+                    songContainer.style.opacity = 1; // Immediately show the song container
+                } else {
+                    alert('Incorrect password. Try again.');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
